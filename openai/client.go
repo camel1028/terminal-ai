@@ -12,7 +12,7 @@ import (
 
 func NewClient() *openai.Client {
 	fmt.Println("Entering function")
-    _ = godotenv.Load() // Load .env file into os.Environ
+    _ = godotenv.Load()
 
     apiKey := os.Getenv("OPENAI_API_KEY")
     if apiKey == "" {
@@ -29,11 +29,12 @@ func AskGPT(input string) (string, error){
 	response, err := client.CreateChatCompletion(
 		context.Background(),
 		openai.ChatCompletionRequest{
-            Model: openai.GPT5, // or GPT3.5
+            Model: openai.GPT5, 
             Messages: []openai.ChatCompletionMessage{
                 {
                     Role:    openai.ChatMessageRoleSystem,
-                    Content: `You are a helpful assistant that converts natural language into safe Linux shell commands with explanations.`,
+                    Content: `You are a helpful assistant that converts natural language into safe Linux shell commands with explanations. 
+                    Your responses will first simply list out the command for the user, then it will provide an explanation`,
                 },
                 {
                     Role:    openai.ChatMessageRoleUser,
